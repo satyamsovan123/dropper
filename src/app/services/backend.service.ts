@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FileUploadForm } from '../models/FileUploadForm.model';
 import { from } from 'rxjs';
+import { TableData } from '../models/TableData.model';
 
 @Injectable({
   providedIn: 'root',
@@ -44,7 +45,7 @@ export class BackendService {
               fileType: 'mp4',
               timestamp: '23 July 2022 09:10 PM IST',
               fileSize: '128.5 MB',
-              createdBy: 'Bob-Android-Chrome',
+              createdBy: 'Emma-iOS-Safari',
               uri: 'http://192.168.29.23/Desktop/files/video.mp4',
             },
             {
@@ -68,7 +69,7 @@ export class BackendService {
               fileType: 'xlsx',
               timestamp: '25 July 2022 08:55 AM IST',
               fileSize: '850 KB',
-              createdBy: 'David-Mac-Chrome',
+              createdBy: 'Emma-iOS-Safari',
               uri: 'http://192.168.29.23/Desktop/files/spreadsheet.xlsx',
             },
           ],
@@ -78,7 +79,24 @@ export class BackendService {
       setTimeout(() => {
         resolve(sampleMessage[0]);
         // reject(sampleMessage[1]);
-      }, 4000);
+      }, 1000);
+    });
+
+    return from(promise);
+  }
+
+  deleteData(data: TableData[]) {
+    console.log(data);
+
+    const promise = new Promise((resolve, reject) => {
+      const sampleMessage = [
+        { message: 'Data deleted successfully.' },
+        { message: 'Unable to delete data.' },
+      ];
+      setTimeout(() => {
+        resolve(sampleMessage[0]);
+        // reject(sampleMessage[1]);
+      }, 2000);
     });
 
     return from(promise);

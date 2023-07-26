@@ -2,6 +2,8 @@ export const BACKEND_URL = 'http://localhost:3000';
 export const FILE_UPLOAD_SUCCESS_MESSAGE = 'Data uploaded successfully.';
 export const FILE_UPLOAD_ERROR_MESSAGE = 'Unable to upload data.';
 export const UNABLE_TO_GET_DATA = 'Unable to get data.';
+export const NO_FILES_TO_DELETE =
+  'Please filter the table data to delete files form server.';
 
 export const FILE_UPLOAD_FORM_ERROR_MESSAGE = {
   name: 'Name is a required field.',

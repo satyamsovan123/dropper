@@ -1,25 +1,96 @@
-<section class="background-image"></section>
-<div class="table-responsive">
-  <table class="table table-borderless table-striped">
-    <thead class="">
-      <tr>
-        <th scope="col">File name</th>
-        <th scope="col">Type</th>
-        <th scope="col">Time</th>
-        <th scope="col">Size</th>
-        <th scope="col">Uploader</th>
-      </tr>
-    </thead>
-    <tbody class="table-group-divider">
-      <tr *ngFor="let file of data">
-        <td>
-          <a [href]="file.uri">{{ file.fileName }}</a>
-        </td>
-        <td>{{ file.fileType }}</td>
-        <td>{{ file.timestamp }}</td>
-        <td>{{ file.fileSize }}</td>
-        <td>{{ file.createdBy }}</td>
-      </tr>
-    </tbody>
-  </table>
+<div
+  class="modal fade"
+  id="deleteModal"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="deleteModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fs-5" id="deleteModalLabel">
+          {{
+            this.selectedData.length > 0
+              ? this.selectedData.length == 1
+                ? "Do you want to delete " + this.selectedData.length + " file?"
+                : "Do you want to delete " +
+                  this.selectedData.length +
+                  " files?"
+              : this.noFilesToDelete
+          }}
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-footer">
+        <button
+          (click)="deleteData()"
+          [disabled]="this.selectedData.length == 0"
+          type="button"
+          class="btn btn-outline-dark btn-md"
+          data-bs-dismiss="modal"
+        >
+          Delete file{{ this.selectedData.length > 1 ? "s" : "" }}
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
+
+<section class="background-image">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="mb-3">
+        <label for="filterText" class="form-label">Filter</label>
+        <div class="d-flex justify-content-center align-content-between">
+          <input
+            type="text"
+            class="form-control"
+            id="filterText"
+            placeholder="File name / Type / Time / Size / Uploader"
+            [(ngModel)]="filterText"
+            (ngModelChange)="filterTableData()"
+          />
+          <button
+            class="btn ml-3 delete-btn"
+            (click)="showDeleteModal()"
+            data-bs-toggle="modal"
+            data-bs-target="#deleteModal"
+          >
+            <img src="../../../assets/trash.svg" alt="" />
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="table-responsive">
+    <table class="table table-borderless">
+      <thead class="mb-2">
+        <tr>
+          <th scope="col">File name</th>
+          <th scope="col">Type</th>
+          <th scope="col">Time</th>
+          <th scope="col">Size</th>
+          <th scope="col">Uploader</th>
+        </tr>
+      </thead>
+      <tbody class="table-group-divider">
+        <tr *ngFor="let file of data">
+          <td>
+            <a [href]="file.uri" target="_blank">{{ file.fileName }}</a>
+          </td>
+          <td>{{ file.fileType }}</td>
+          <td>{{ file.timestamp }}</td>
+          <td>{{ file.fileSize }}</td>
+          <td>{{ file.createdBy }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>

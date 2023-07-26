@@ -26,3 +26,18 @@ a {
 td {
   min-height: 60px !important;
 }
+
+.table {
+  --bs-table-bg: transparent !important;
+}
+
+.delete-btn {
+  margin-left: 10px;
+  color: var(--dark);
+  background-color: var(--light);
+}
+
+.delete-btn:hover {
+  color: var(--dark);
+  background-color: var(--light);
+}
