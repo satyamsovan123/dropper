@@ -1,0 +1,7 @@
+img {
+  cursor: pointer;
+}
+
+a {
+  font-variation-settings: "wght" 400, "wdth" 130;
+}

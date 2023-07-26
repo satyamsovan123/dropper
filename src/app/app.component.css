@@ -1,0 +1,10 @@
+.rendered-component {
+  margin-top: 15px;
+}
+
+.disabled {
+  pointer-events: none !important;
+  cursor: progress !important;
+  opacity: 0.4;
+  filter: blur(2px);
+}

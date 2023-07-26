@@ -1,0 +1,25 @@
+<section class="background-image"></section>
+<div class="table-responsive">
+  <table class="table table-borderless table-striped">
+    <thead class="">
+      <tr>
+        <th scope="col">File name</th>
+        <th scope="col">Type</th>
+        <th scope="col">Time</th>
+        <th scope="col">Size</th>
+        <th scope="col">Uploader</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+      <tr *ngFor="let file of data">
+        <td>
+          <a [href]="file.uri">{{ file.fileName }}</a>
+        </td>
+        <td>{{ file.fileType }}</td>
+        <td>{{ file.timestamp }}</td>
+        <td>{{ file.fileSize }}</td>
+        <td>{{ file.createdBy }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

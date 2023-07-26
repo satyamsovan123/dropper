@@ -1,0 +1,98 @@
+<section class="row align-items-center">
+  <div class="col-md-6 col-sm-12">
+    <form [formGroup]="fileUploadForm">
+      <div class="mb-3">
+        <label
+          for="name"
+          class="form-label d-flex justify-content-between align-items-center"
+          >Name
+          <span
+            id="nameFeedback"
+            [ngClass]="
+              fileUploadForm.get('name')?.invalid &&
+              fileUploadForm.get('name')?.touched == true
+                ? 'show-feedback'
+                : 'hide-feedback'
+            "
+          >
+            {{ errorFeedback.name }}
+          </span></label
+        >
+
+        <input
+          type="text"
+          class="form-control"
+          placeholder="John Appleseed"
+          formControlName="name"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label
+          for="passphrase"
+          class="form-label d-flex justify-content-between align-items-center"
+          >Passphrase
+          <span
+            id="passphraseFeedback"
+            [ngClass]="
+              fileUploadForm.get('passphrase')?.invalid &&
+              fileUploadForm.get('passphrase')?.touched == true
+                ? 'show-feedback'
+                : 'hide-feedback'
+            "
+          >
+            {{ errorFeedback.passphrase }}
+          </span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Pa$$pHra53"
+          formControlName="passphrase"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label
+          for="files"
+          class="form-label d-flex justify-content-between align-items-center"
+          >Files
+          <span
+            id="filesFeedback"
+            [ngClass]="
+              fileUploadForm.get('files')?.invalid &&
+              fileUploadForm.get('files')?.touched == true
+                ? 'show-feedback'
+                : 'hide-feedback'
+            "
+          >
+            {{ errorFeedback.files }}
+          </span></label
+        >
+
+        <div class="input-group">
+          <input
+            (change)="onFileChange($event)"
+            type="file"
+            formControlName="files"
+            class="form-control form-control-lg"
+            id="files"
+            multiple
+            placeholder="Add files"
+          />
+        </div>
+      </div>
+    </form>
+    <br />
+    <button
+      type="button"
+      class="btn btn-outline-dark btn-md"
+      (click)="handleSubmit()"
+    >
+      Upload
+    </button>
+  </div>
+  <div class="col-md-6 col-sm-12 abstract-image-container">
+    <img class="circles" src="../../../assets/circles.svg" alt="" />
+  </div>
+</section>

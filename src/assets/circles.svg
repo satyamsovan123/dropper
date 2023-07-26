@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="738px" height="773px" viewBox="0 0 738 773" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Circles</title>
+    <defs>
+        <filter x="-9.2%" y="-8.8%" width="118.5%" height="117.6%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="2" dy="7" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="13" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.711871603   0 0 0 0 0.711871603   0 0 0 0 0.711871603  0 0 0 0.249426355 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <filter x="0.0%" y="0.0%" width="100.0%" height="100.0%" filterUnits="objectBoundingBox" id="filter-2">
+            <feGaussianBlur stdDeviation="0" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="0.0%" y="0.0%" width="100.0%" height="100.0%" filterUnits="objectBoundingBox" id="filter-3">
+            <feGaussianBlur stdDeviation="0" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="0.0%" y="0.0%" width="100.0%" height="100.0%" filterUnits="objectBoundingBox" id="filter-4">
+            <feGaussianBlur stdDeviation="0" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="0.0%" y="0.0%" width="100.0%" height="100.0%" filterUnits="objectBoundingBox" id="filter-5">
+            <feGaussianBlur stdDeviation="0" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="0.0%" y="0.0%" width="100.0%" height="100.0%" filterUnits="objectBoundingBox" id="filter-6">
+            <feGaussianBlur stdDeviation="0" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="1024x1024" transform="translate(-145.000000, -133.000000)">
+            <g id="Circles" filter="url(#filter-1)" transform="translate(168.000000, 151.000000)">
+                <circle id="Pink" fill="#FFB2EC" filter="url(#filter-2)" cx="293.5" cy="162.5" r="162.5"></circle>
+                <circle id="Red" fill="#FF8080" filter="url(#filter-3)" cx="245.5" cy="346.5" r="245.5"></circle>
+                <circle id="Green" fill="#8BFFB4" filter="url(#filter-4)" cx="490.5" cy="499.5" r="197.5"></circle>
+                <circle id="Blue" fill="#8BD9FF" filter="url(#filter-5)" cx="490.5" cy="591.5" r="131.5"></circle>
+                <circle id="Purple" fill="#C18BFF" filter="url(#filter-6)" cx="122" cy="499" r="114"></circle>
+                <circle id="Yellow" fill="#FFEB8B" cx="61" cy="162" r="61"></circle>
+            </g>
+        </g>
+    </g>
+</svg>
