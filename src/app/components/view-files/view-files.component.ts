@@ -1,10 +1,10 @@
 import { AfterViewChecked, Component, OnInit } from '@angular/core';
-import { finalize } from 'rxjs';
+import { concat, finalize } from 'rxjs';
 import { TableData } from 'src/app/models/TableData.model';
 import { BackendService } from 'src/app/services/backend.service';
 import { CommonService } from 'src/app/services/common.service';
 import { ThemeService } from 'src/app/services/theme.service';
-import { NO_FILES_TO_DELETE } from '../../constants/constants';
+import { USER_ACTION_MESSAGES } from '../../constants/constants';
 
 @Component({
   selector: 'app-view-files',
@@ -19,7 +19,9 @@ export class ViewFilesComponent implements OnInit, AfterViewChecked {
 
   showModal: boolean = false;
 
-  noFilesToDelete: string = NO_FILES_TO_DELETE;
+  noDataToDelete: string = USER_ACTION_MESSAGES.noDataToDelete;
+  noDataFound: string = USER_ACTION_MESSAGES.noFilesFound;
+
   ngAfterViewChecked(): void {
     if (!this.viewInitialized) {
       this.viewInitialized = true;
@@ -32,6 +34,7 @@ export class ViewFilesComponent implements OnInit, AfterViewChecked {
 
   selectedData: any[] = [];
 
+  noDataFromServer: boolean = false;
   viewInitialized: boolean = false;
   filterText: string = '';
 
@@ -52,39 +55,50 @@ export class ViewFilesComponent implements OnInit, AfterViewChecked {
       )
       .subscribe({
         next: (response: any) => {
+          this.commonService.log(response);
+
+          if (!response.data || response.data.length === 0) {
+            this.noDataFromServer = true;
+            message = USER_ACTION_MESSAGES.noFilesFound;
+            this.commonService.notificationMessageSubject.next(message);
+            this.commonService.updateNotificationSubject(true);
+            this.commonService.updateSpinnerSubject(false);
+            return;
+          }
+
           this.data = response.data;
           this.backupData = response.data;
-          console.log(response);
-          message = response.message;
+
+          message = response.message
+            ? response.message
+            : USER_ACTION_MESSAGES.getDataSuccess;
         },
         error: (error: any) => {
-          console.log(error);
-          message = error.message;
+          this.commonService.log(error);
+          if (error.error && error.error.message) {
+            message = error.error.message;
+          } else {
+            message = USER_ACTION_MESSAGES.dataUploadError;
+          }
         },
       });
   }
 
   filterTableData() {
-    // console.log(this.filterText);
     this.selectedData = [];
     if (this.filterText.length > 0) {
       this.data = this.data.filter((row: TableData) => {
         return (
-          row.fileName
+          row.name
             .toLocaleLowerCase()
             .includes(this.filterText.toLowerCase()) ||
-          row.fileType
+          row.timeStamp
             .toLocaleLowerCase()
             .includes(this.filterText.toLowerCase()) ||
-          row.timestamp
+          row.size
             .toLocaleLowerCase()
             .includes(this.filterText.toLowerCase()) ||
-          row.fileSize
-            .toLocaleLowerCase()
-            .includes(this.filterText.toLowerCase()) ||
-          row.createdBy
-            .toLocaleLowerCase()
-            .includes(this.filterText.toLowerCase())
+          row.author.toLocaleLowerCase().includes(this.filterText.toLowerCase())
         );
       });
       this.selectedData = this.data;
@@ -117,12 +131,69 @@ export class ViewFilesComponent implements OnInit, AfterViewChecked {
         next: (response: any) => {
           this.data = response.data;
           this.backupData = response.data;
-          console.log(response);
-          message = response.message;
+          this.commonService.log(response);
+          message = response.message
+            ? response.message
+            : USER_ACTION_MESSAGES.deleteDataSuccess;
         },
         error: (error: any) => {
-          console.log(error);
-          message = error.message;
+          this.commonService.log(error);
+          if (error.error && error.error.message) {
+            message = error.error.message;
+          } else {
+            message = USER_ACTION_MESSAGES.dataUploadError;
+          }
+        },
+      });
+  }
+
+  downloadFile(fileName: string) {
+    this.commonService.updateSpinnerSubject(true);
+    let message: string = '';
+
+    if (!fileName) {
+      this.commonService.notificationMessageSubject.next(
+        USER_ACTION_MESSAGES.noFilesFoundToDownload
+      );
+      this.commonService.updateNotificationSubject(true);
+      this.commonService.updateSpinnerSubject(false);
+      return;
+    }
+
+    let requestBody = {
+      fileName: fileName,
+    };
+    this.backendService
+      .downloadFile(requestBody)
+      .pipe(
+        finalize(() => {
+          this.commonService.notificationMessageSubject.next(message);
+          this.commonService.updateNotificationSubject(true);
+          this.commonService.updateSpinnerSubject(false);
+        })
+      )
+      .subscribe({
+        next: (response: any) => {
+          this.commonService.log(response);
+
+          const url = URL.createObjectURL(response);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = fileName;
+          link.click();
+          URL.revokeObjectURL(url);
+
+          message = response.message
+            ? response.message
+            : USER_ACTION_MESSAGES.getDataSuccess;
+        },
+        error: (error: any) => {
+          this.commonService.log(error);
+          if (error.error && error.error.message) {
+            message = error.error.message;
+          } else {
+            message = USER_ACTION_MESSAGES.dataDownloadError;
+          }
         },
       });
   }

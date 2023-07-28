@@ -15,14 +15,12 @@ export class NotificationComponent {
     this.commonService.notificationSubject$.subscribe(
       (notificationState: boolean) => {
         this.notificationState = notificationState;
-        console.log(`Notification state: ${this.notificationState}`);
       }
     );
 
     this.commonService.notificationMessageSubject$.subscribe(
       (notificationMessage: string) => {
         this.notificationMessage = notificationMessage;
-        console.log(`Notification message: ${this.notificationMessage}`);
       }
     );
   }

@@ -3,5 +3,6 @@ export interface FileUploadForm {
   deviceIdentity: string;
   timeStamp: number;
   passphrase: string;
+  autoDelete: boolean;
   files: File[];
 }

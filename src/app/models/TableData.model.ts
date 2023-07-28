@@ -1,8 +1,8 @@
 export interface TableData {
-  fileName: string;
-  fileType: string;
-  timestamp: string;
-  fileSize: string;
-  createdBy: string;
-  uri: string;
+  author: string;
+  timeStamp: string;
+  size: string;
+  name: string;
+  deviceIdentity: string;
+  autoDelete: boolean;
 }

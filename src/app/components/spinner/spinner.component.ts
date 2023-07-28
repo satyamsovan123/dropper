@@ -12,7 +12,6 @@ export class SpinnerComponent {
   ngOnInit() {
     this.commonService.spinnerSubject$.subscribe((spinnerState: boolean) => {
       this.spinnerState = spinnerState;
-      console.log(`Spinner state: ${this.spinnerState}`);
     });
   }
 }

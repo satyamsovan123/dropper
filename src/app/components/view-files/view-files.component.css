@@ -41,3 +41,11 @@ td {
   color: var(--dark);
   background-color: var(--light);
 }
+
+.downloadable-name {
+  cursor: pointer;
+}
+
+.downloadable-name:hover {
+  color: var(--secondary);
+}

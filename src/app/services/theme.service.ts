@@ -7,8 +7,6 @@ export class ThemeService {
   constructor() {}
 
   switchTheme(currentTheme: string) {
-    // console.log(`Theme switched to ${currentTheme}`);
-    // localStorage.setItem('theme', currentTheme);
     document.body.className = currentTheme;
   }
 
